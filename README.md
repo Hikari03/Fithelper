@@ -2,6 +2,8 @@
 
 Script for school work management on FIT CTU. This is hobby project, so don't expect anything extra.
 
+**Disclaimer:** I take absolutely no resposibility for any loss of data.
+
 ## Usage
 
 ```
