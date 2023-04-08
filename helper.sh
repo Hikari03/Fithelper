@@ -6,7 +6,7 @@
 #########################
 
 source /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
-version="23.04.07"
+version="23.04.08"
 
 #########################
 ####### FUNCTIONS #######
@@ -27,11 +27,11 @@ function cpSap() {
 }
 
 function syncGit() {
-    cd "$LocalDir"              || echo "cd to '$LocalDir' failed"; exit 1
-    git add -- *glob*
+    cd "$LocalDir"              || (echo "cd to '$LocalDir' failed"; exit 1)
+    git add *
     git commit
     git push
-    cd -                        || echo "IDK how you managed to do that, but cd to previous dir failed"; exit 1
+    cd -                        || (echo "IDK how you managed to do that, but cd to previous dir failed"; exit 1)
 }
 
 function cPa2() {
@@ -39,11 +39,11 @@ function cPa2() {
 }
 
 function syncGitPa2() {
-    cd $"$FacultyPA2GitDir"     || echo "cd to '$FacultyPA2GitDir' failed"; exit 1
-    git add -- *glob*
+    cd "$FacultyPA2GitDir"     || (echo "cd to '$FacultyPA2GitDir' failed"; exit 1)
+    git add *
     git commit
     git push
-    cd -                        || echo "IDK how you managed to do that, but cd to previous dir failed"; exit 1
+    cd -                        || (echo "IDK how you managed to do that, but cd to previous dir failed"; exit 1)
 }
 
 function cpPsi() {
