@@ -1,18 +1,19 @@
 #!/bin/bash
 
+# Version: 23.04.08
 # This is a setup script for my helper.sh script
 # It will install helper.sh to /usr/local/bin
 # and create a config file in /home/(username)/.config/fithelper
 
 # Check if user is root
 if [ "$(id -u)" != "0" ]; then
-    echo -e "\033[1;31mThis script must be run as root" 1>&2
+    echo -e "\033[1;31mThis script must be run as root\033[0m" 1>&2
     exit 1
 fi
 
 # Check if helper.sh is in the same directory as this script
 if [ ! -f helper.sh ]; then
-    echo -e "\033[1;31mhelper.sh not found in the same directory as this script" 1>&2
+    echo -e "\033[1;31mhelper.sh not found in the same directory as this script\033[0m" 1>&2
     exit 1
 fi
 
@@ -23,6 +24,7 @@ if [ "$answer" = "update" ]; then
     echo "Updating..."
     cp helper.sh /usr/local/bin/fithelper
     chmod +x /usr/local/bin/fithelper
+    echo "Done"
     exit 0
 fi
 
@@ -34,8 +36,8 @@ mkdir /home/"${SUDO_USER:-${USER}}"/.config/fithelper 2>/dev/null
 touch /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
 
 # Ask for config values
-echo -e "\033[1;31mYou don't have to enter anything, but parts of script will not work."
-echo -e  "\033[1;31mIf you don't enter values, you can edit the config file in /home/${SUDO_USER:-${USER}}/.config/fithelper/config later, but default behaviour is undefined."
+echo -e "\033[1;31mYou don't have to enter anything, but parts of script will not work.\033[0m"
+echo -e "\033[1;31mIf you don't enter values, you can edit the config file in /home/${SUDO_USER:-${USER}}/.config/fithelper/config later, but default behaviour is undefined.\033[0m"
 echo ''
 echo -e "\033[1;35mEnter your CVUT username:\033[0;35m"
 read -r DriveUser
@@ -59,8 +61,8 @@ echo -e "\033[1;35mEnter your PSI IDE directory:\033[0;35m"
 read -r PSIIDEDir
 
 echo ''
-echo -e "\033[0;35mThere are some default values, but you can change them later in /home/${SUDO_USER:-${USER}}/.config/fithelper/config"
-echo -e "\033[0;35mBy default, the script uses number of semester for subdirectories, but you can change it to something else."
+echo -e "\033[0;35mThere are some default values, but you can change them later in /home/${SUDO_USER:-${USER}}/.config/fithelper/config\033[0m"
+echo -e "\033[0;35mBy default, the script uses number of semester for subdirectories, but you can change it to something else.\033[0m"
 
 # Write config values to config file
 echo "#########################" > /home/hikari/.config/fithelper/config
@@ -93,5 +95,8 @@ chmod +x /usr/local/bin/fithelper
 chmod +rw /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
 
 # Done
-echo -e "\033[1;32mSetup complete. You can edit the config file in \033[1;31m/home/${SUDO_USER:-${USER}}/.config/fithelper/config\033[1;32m, if you need to."
-echo -e "\033[1;32mRun fithelper help for more info."
+echo -e "\033[1;32mSetup complete. You can edit the config file in \033[1;31m/home/${SUDO_USER:-${USER}}/.config/fithelper/config\033[1;32m, if you need to.\033[0m"
+echo -e "\033[1;32mRun \033[1;31mfithelper help\033[1;32m for more info.\033[0m"
+echo -e "\033[1;32m┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\033[0m"
+echo -e "\033[1;32m┃ \033[1;35mThank you for trying my script! :) \033[1;32m┃\033[0m"
+echo -e "\033[1;32m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\033[0m"

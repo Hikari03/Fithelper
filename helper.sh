@@ -220,12 +220,12 @@ function GUI() {
 ######### MAIN ##########
 #########################
 
-if [ "$1" = 'mount' ]; then
+if [ "$1" = 'mount' ] || [ "$1" = 'm' ]; then
     echo 'Mounting...'
     mount
     echo 'Done'
 
-elif [ "$1" = 'unmount' ]; then
+elif [ "$1" = 'unmount' ] || [ "$1" = 'un' ]; then
     echo 'Unmounting...'
     unmount
     echo 'Done'
@@ -244,7 +244,7 @@ elif [ "$1" = 'allsap' ]; then
     unmount
     echo 'Done'
 
-elif [ "$1" = 'syncgit' ]; then
+elif [ "$1" = 'syncgit' ] || [ "$1" = 's' ]; then
     echo 'Syncing git...'
     syncGit
     echo 'Done'
@@ -254,7 +254,7 @@ elif [ "$1" = 'cpa2' ]; then
     cpa2
     echo 'Done'
 
-elif [ "$1" = 'syncgitpa2' ]; then
+elif [ "$1" = 'syncgitpa2' ] || [ "$1" = 'sgpa2' ]; then
     echo 'Syncing PA2 git...'
     syncGitPa2
     echo 'Done'
@@ -286,7 +286,7 @@ elif [ "$1" = 'everything' ]; then
     unmount
     echo 'Done'
 
-elif [ "$1" = 'gui' ]; then
+elif [ "$1" = 'gui' ] || [ "$1" = 'g' ]; then
     GUI
 
 elif [ "$1" = 'help' ]; then
@@ -294,31 +294,33 @@ elif [ "$1" = 'help' ]; then
     echo 'Helper script for CVUT FIT students'
     echo ''
     echo 'Options:'
-    echo '  gui               Display GUI'
-    echo '  mount             Enable vpn and connect to faculty drive'
-    echo '  unmount           Unmount drive and disable vpn'
-    echo '  csap              Copy files from SAP to local dir'
-    echo '  allsap            Do everything for SAP'
-    echo '  syncgit           Commit and push to repo'
-    echo '  cpa2              Copy PA2 folder to faculty repo'
-    echo '  syncgitpa2        Commit and push PA2 to faculty repo'
-    echo '  allpa2            Do both above'
-    echo '  psi               Copy PSI semester work to local dir'
-    echo '  everything        DANGEROUS! DOES EVERYTHING!'
-    echo '  help              Display this help and exit'
-    echo '  display_config    Display config'
-    echo '  version           Display version'
+    echo '  (g)ui                 Display GUI'
+    echo '  (m)ount               Enable vpn and connect to faculty drive'
+    echo '  (un)mount             Unmount drive and disable vpn'
+    echo '  csap                  Copy files from SAP to local dir'
+    echo '  allsap                Do everything for SAP'
+    echo '  (s)yncgit             Commit and push to repo'
+    echo '  cpa2                  Copy PA2 folder to faculty repo'
+    echo '  syncgitpa2 (sgpa2)    Commit and push PA2 to faculty repo'
+    echo '  allpa2                Do both above'
+    echo '  psi                   Copy PSI semester work to local dir'
+    echo '  everything            DANGEROUS! DOES EVERYTHING!'
+    echo '  help                  Display this help and exit'
+    echo '  display_config        Display config'
+    echo '  version               Display version'
     echo ''
     echo 'If there is any problem, please report it on github: https://github.com/Hikari03/fithelper'
     echo -e '\033[1;31mBefore doing so, try running "fithelper display_config" and check if your config is correct\033[0m'
     echo -e '\033[1;31mIf you are using GUI, try CLI commands first, as they display errors in more readable way\033[0m'
-    echo -e '\033[1;32mAlso, if you have any idea for new feature, feel free to open issue'
+    echo -e '\033[1;32mAlso, if you have any idea for new feature, feel free to open issue\033[0m'
 
 elif [ "$1" = 'display_config' ]; then
     cat /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
 
 elif [ "$1" = 'version' ]; then
-    echo "fithelper $version"
+     echo -e "Fithelper version $version"
+     echo -e "Made with \033[1;31m<3 \033[0mby \033[1;35mDavid Houdek\033[0m"
+
 
 else
     echo 'Invalid option, type "fithelper help" for more'
