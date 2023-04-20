@@ -6,7 +6,7 @@
 #########################
 
 source /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
-version="23.04.08"
+version="23.04.20"
 
 #########################
 ####### FUNCTIONS #######

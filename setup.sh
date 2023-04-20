@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Version: 23.04.08
+# Version: 23.04.20
 # This is a setup script for my helper.sh script
 # It will install helper.sh to /usr/local/bin
 # and create a config file in /home/(username)/.config/fithelper
@@ -81,7 +81,7 @@ echo "#########################" >> /home/hikari/.config/fithelper/config
 echo "##### DEFAULT VALUES ####" >> /home/hikari/.config/fithelper/config
 echo "#########################" >> /home/hikari/.config/fithelper/config
 echo "PA2SubDir=\"2\.Semestr/PA2\"" >> /home/hikari/.config/fithelper/config
-echo "SAPSubDir=\"2\.Semestr/SAP\"" >> /home/hikari/.config/fithelper/config
+echo "SAPSubDir=\"2\.Semestr/\"" >> /home/hikari/.config/fithelper/config
 echo "PSISubDir=\"2\.Semestr/PSI\"" >> /home/hikari/.config/fithelper/config
 
 # Create subdirectories
