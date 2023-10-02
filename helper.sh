@@ -6,7 +6,7 @@
 #########################
 
 source /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
-version="23.04.20"
+version="23.10.02"
 
 #########################
 ####### FUNCTIONS #######
@@ -50,6 +50,10 @@ function cpPsi() {
     cp "$PSIIDEDir"/main.py "$LocalDir"/"$PSISubDir"
 }
 
+function cpAPS() {
+    cp -ru "$MountDir"/Documents/APS/* "$LocalDir"/"$APSSubDir"
+}
+
 #########################
 ### DISPLAY FUNCTIONS ###
 #########################
@@ -87,6 +91,13 @@ function displayCopyingSAP() {
         --backtitle "FITHELPER GUI" \
         --title "FITHELPER" \
         --infobox 'Copying SAP...' 6 20
+}
+
+function displayCopyingAPS() {
+    dialog \
+        --backtitle "FITHELPER GUI" \
+        --title "FITHELPER" \
+        --infobox 'Copying APS...' 6 20
 }
 
 function displaySyncingGit() {
@@ -135,6 +146,8 @@ function GUI() {
     syncgitpa2 "Commit and push PA2 to faculty repo"
     allpa2 "Do both above"
     psi "Copy PSI semester work to local dir"
+    caps "Copy APS semester work to local dir"
+    allaps "Do everything for APS"
     everything "DANGEROUS! DOES EVERYTHING!" )
 
     choice=$(
@@ -196,6 +209,18 @@ function GUI() {
       displayCopyingPSI
       cpPsi
 
+    elif [ "$choice" = 'caps' ]; then
+      displayCopyingAPS
+      cpAPS
+
+    elif [ "$choice" = 'allaps' ]; then
+      displayMounting
+      mount
+      displayCopyingAPS
+      cpAPS
+      displayUnmounting
+      unmount
+
     elif [ "$choice" = 'everything' ]; then
       displayMounting
       mount
@@ -251,7 +276,7 @@ elif [ "$1" = 'syncgit' ] || [ "$1" = 's' ]; then
 
 elif [ "$1" = 'cpa2' ]; then
     echo 'Copying PA2...'
-    cpa2
+    cPa2
     echo 'Done'
 
 elif [ "$1" = 'syncgitpa2' ] || [ "$1" = 'sgpa2' ]; then
@@ -267,7 +292,23 @@ elif [ "$1" = 'allpa2' ]; then
     echo 'Done'
 
 elif [ "$1" = 'psi' ]; then
+    echo 'Copying PSI...'
     cpPsi
+    echo 'Done'
+
+elif [ "$1" = 'caps' ]; then
+    echo 'Copying APS...'
+    cpAPS
+    echo 'Done'
+
+elif [ "$1" = 'allaps' ]; then
+    echo 'Mounting...'
+    mount
+    echo 'Copying APS...'
+    cpAPS
+    echo 'Unmounting...'
+    unmount
+    echo 'Done'
 
 elif [ "$1" = 'everything' ]; then
     echo 'Mounting...'
@@ -304,6 +345,8 @@ elif [ "$1" = 'help' ]; then
     echo '  syncgitpa2 (sgpa2)    Commit and push PA2 to faculty repo'
     echo '  allpa2                Do both above'
     echo '  psi                   Copy PSI semester work to local dir'
+    echo '  caps                  Copy APS semester work to local dir'
+    echo '  allaps                Do everything for APS'
     echo '  everything            DANGEROUS! DOES EVERYTHING!'
     echo '  help                  Display this help and exit'
     echo '  display_config        Display config'

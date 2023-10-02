@@ -59,36 +59,42 @@ read -r SAPRemoteDir
 echo ''
 echo -e "\033[1;35mEnter your PSI IDE directory:\033[0;35m"
 read -r PSIIDEDir
+echo ''
+echo -e "\033[1;35mEnter your APS directory on faculty drive:\033[0;35m"
+read -r APSRemoteDir
 
 echo ''
 echo -e "\033[0;35mThere are some default values, but you can change them later in /home/${SUDO_USER:-${USER}}/.config/fithelper/config\033[0m"
 echo -e "\033[0;35mBy default, the script uses number of semester for subdirectories, but you can change it to something else.\033[0m"
 
 # Write config values to config file
-echo "#########################" > /home/hikari/.config/fithelper/config
-echo "######### CONFIG ########" >> /home/hikari/.config/fithelper/config
-echo "#########################" >> /home/hikari/.config/fithelper/config
-echo "DriveUser=\"$DriveUser\"" >> /home/hikari/.config/fithelper/config
-echo "DrivePass=\"$DrivePass\"" >> /home/hikari/.config/fithelper/config
-echo "LocalDir=\"$LocalDir\"" >> /home/hikari/.config/fithelper/config
-echo "MountDir=\"$MountDir\"" >> /home/hikari/.config/fithelper/config
-echo "FacultyPA2GitDir=\"$FacultyPA2GitDir\"" >> /home/hikari/.config/fithelper/config
-echo "SAPRemoteDir=\"$SAPRemoteDir\"" >> /home/hikari/.config/fithelper/config
-echo "PSIIDEDir=\"$PSIIDEDir\"" >> /home/hikari/.config/fithelper/config
+echo "#########################" > /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "######### CONFIG ########" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "#########################" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "DriveUser=\"$DriveUser\"" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "DrivePass=\"$DrivePass\"" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "LocalDir=\"$LocalDir\"" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "MountDir=\"$MountDir\"" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "FacultyPA2GitDir=\"$FacultyPA2GitDir\"" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "SAPRemoteDir=\"$SAPRemoteDir\"" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "PSIIDEDir=\"$PSIIDEDir\"" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "APSRemoteDir=\"$APSRemoteDir\"" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
 
-echo '' >> /home/hikari/.config/fithelper/config
-echo "#########################" >> /home/hikari/.config/fithelper/config
-echo "##### DEFAULT VALUES ####" >> /home/hikari/.config/fithelper/config
-echo "#########################" >> /home/hikari/.config/fithelper/config
-echo "PA2SubDir=\"2\.Semestr/PA2\"" >> /home/hikari/.config/fithelper/config
-echo "SAPSubDir=\"2\.Semestr/\"" >> /home/hikari/.config/fithelper/config
-echo "PSISubDir=\"2\.Semestr/PSI\"" >> /home/hikari/.config/fithelper/config
+echo '' >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "#########################" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "##### DEFAULT VALUES ####" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "#########################" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "PA2SubDir=\"2\.Semestr/PA2\"" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "SAPSubDir=\"2\.Semestr/\"" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "PSISubDir=\"2\.Semestr/PSI\"" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
+echo "APSSubDir=\"2\.Semestr/APS\"" >> /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
 
 # Create subdirectories
 mkdir "$LocalDir"/2\.Semestr >/dev/null 2>&1
 mkdir "$LocalDir"/2\.Semestr/PA2 >/dev/null 2>&1
 mkdir "$LocalDir"/2\.Semestr/SAP >/dev/null 2>&1
 mkdir "$LocalDir"/2\.Semestr/PSI >/dev/null 2>&1
+mkdir "$LocalDir"/3\.Semestr/APS >/dev/null 2>&1
 
 # Set permissions
 chmod +x /usr/local/bin/fithelper
