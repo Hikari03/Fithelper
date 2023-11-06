@@ -6,7 +6,7 @@
 #########################
 
 source /home/"${SUDO_USER:-${USER}}"/.config/fithelper/config
-version="23.10.02"
+version="23.11.06"
 
 #########################
 ####### FUNCTIONS #######
@@ -52,6 +52,12 @@ function cpPsi() {
 
 function cpAPS() {
     cp -ru "$MountDir"/Documents/APS/* "$LocalDir"/"$APSSubDir"
+}
+
+function sinis() {
+    nmcli con up id SIN
+    ssh pride
+    nmcli con down id SIN
 }
 
 #########################
@@ -148,7 +154,8 @@ function GUI() {
     psi "Copy PSI semester work to local dir"
     caps "Copy APS semester work to local dir"
     allaps "Do everything for APS"
-    everything "DANGEROUS! DOES EVERYTHING!" )
+    everything "DANGEROUS! DOES EVERYTHING!"
+    sinis "ssh to sinis pride")
 
     choice=$(
     dialog --clear --keep-tite \
@@ -220,6 +227,9 @@ function GUI() {
       cpAPS
       displayUnmounting
       unmount
+
+    elif [ "$choice" = 'sinis' ]; then
+      sinis
 
     elif [ "$choice" = 'everything' ]; then
       displayMounting
@@ -309,6 +319,9 @@ elif [ "$1" = 'allaps' ]; then
     echo 'Unmounting...'
     unmount
     echo 'Done'
+
+elif [ "$1" = 'sinis' ] || [ "$1" = 'sin' ]; then
+    sinis
 
 elif [ "$1" = 'everything' ]; then
     echo 'Mounting...'
