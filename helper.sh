@@ -471,6 +471,7 @@ elif [ "$1" = 'help' ]; then
     echo ''
     echo 'Options:'
     echo '  (g)ui                 Display GUI'
+    echo '  ping                  Checks faculty services'
     echo '  (m)ount               Enable vpn and connect to faculty drive'
     echo '  (un)mount             Unmount drive and disable vpn'
     echo '  csap                  Copy files from SAP to local dir'
