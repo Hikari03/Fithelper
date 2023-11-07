@@ -12,6 +12,7 @@ Helper script for CVUT FIT students
 
 Options:
   gui               Display GUI
+  ping              Checks faculty services
   mount             Enable vpn and connect to faculty drive
   unmount           Unmount drive and disable vpn
   csap              Copy files from SAP to local dir
@@ -21,9 +22,11 @@ Options:
   syncgitpa2        Commit and push PA2 to faculty repo
   allpa2            Do both above
   psi               Copy PSI semester work to local dir
+  caps              Copy APS files from faculty drive
+  allaps            Do everything for APS
   everything        DANGEROUS! DOES EVERYTHING!
   help              Display this help and exit
-  display_config     Display config
+  display_config    Display config
   version           Display version
 
 If there is any problem, please report it on github: https://github.com/Hikari03/fithelper

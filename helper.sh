@@ -1,5 +1,10 @@
 #!/bin/bash
 
+GREEN="\033[0;32m"
+RED="\033[0;31m"
+PURPLE="\033[0;35m"
+BLUE="\033[1;34m"
+RESET="\033[0m"
 
 #########################
 ######### CONFIG ########
@@ -58,6 +63,109 @@ function sinis() {
     nmcli con up id SIN
     ssh pride
     nmcli con down id SIN
+}
+
+function checkHttpCode() {
+    httpCode="$(curl --max-time 5 --silent --write-out %{response_code} "$1" -o /dev/null)"
+    if [ "$httpCode" -ne 200 ] && [ "$httpCode" -ne 301 ]; then
+        echo -e "${RED}Error:${RESET} $1 ${BLUE}returned${RED} $httpCode${RESET}"
+    else
+        echo -e "${GREEN}OK:${RESET} $1 ${BLUE}returned${GREEN} $httpCode${RESET}"
+    fi
+}
+
+function printHorSep() {
+    echo -e "${BLUE}----------------------------------------${RESET}"
+}
+
+function pingServers() {
+    echo -e "${BLUE}Checking internet connection...${RESET}"
+    if ping -q -w 1 -c 1 8.8.8.8 > /dev/null 2>&1; then
+        echo -e "${GREEN}OK: Internet connection is up${RESET}"
+        printHorSep
+        checkHttpCode "https://www.fit.cvut.cz/"
+        printHorSep
+        checkHttpCode "https://kos.cvut.cz/"
+        printHorSep
+        checkHttpCode "https://courses.fit.cvut.cz/"
+        printHorSep
+        checkHttpCode "https://online.fit.cvut.cz/"
+        printHorSep
+        checkHttpCode "https://marast.fit.cvut.cz/"
+        printHorSep
+        checkHttpCode "https://timetable.fit.cvut.cz/"
+        printHorSep
+        checkHttpCode "https://progtest.fit.cvut.cz/"
+        printHorSep
+        checkHttpCode "https://dbs.fit.cvut.cz/"
+        printHorSep
+        checkHttpCode "https://profile.fit.cvut.cz/"
+        printHorSep
+        checkHttpCode "https://grades.fit.cvut.cz/"
+        printHorSep
+        checkHttpCode "https://auth.fit.cvut.cz/"
+        printHorSep
+        checkHttpCode "https://gitlab.fit.cvut.cz/"
+        printHorSep
+        checkHttpCode "https://fit-wiki.cz/"
+        printHorSep
+    else
+        echo -e "${RED}Error: Internet connection is down${RESET}"
+        exit 1
+    fi
+}
+
+# colorless version of checkHttpCode
+function checkHttpCodeColorless() {
+    httpCode="$(curl --max-time 5 --silent --write-out %{response_code} "$1" -o /dev/null)"
+    if [ "$httpCode" -ne 200 ] && [ "$httpCode" -ne 301 ]; then
+        echo -e "Error: $1 returned $httpCode"
+    else
+        echo -e "OK: $1 returned $httpCode"
+    fi
+}
+
+# colorless version of printHorSep
+function printHorSepColorless() {
+    echo -e "----------------------------------------"
+}
+
+# colorless version of pingServers
+function pingServersColorless() {
+    echo "Checking internet connection..."
+    if ping -q -w 1 -c 1 8.8.8.8 > /dev/null 2>&1; then
+        echo "OK: Internet connection is up"
+        printHorSepColorless
+        checkHttpCodeColorless "https://www.fit.cvut.cz/"
+        printHorSepColorless
+        checkHttpCodeColorless "https://kos.cvut.cz/"
+        printHorSepColorless
+        checkHttpCodeColorless "https://courses.fit.cvut.cz/"
+        printHorSepColorless
+        checkHttpCodeColorless "https://online.fit.cvut.cz/"
+        printHorSepColorless
+        checkHttpCodeColorless "https://marast.fit.cvut.cz/"
+        printHorSepColorless
+        checkHttpCodeColorless "https://timetable.fit.cvut.cz/"
+        printHorSepColorless
+        checkHttpCodeColorless "https://progtest.fit.cvut.cz/"
+        printHorSepColorless
+        checkHttpCodeColorless "https://dbs.fit.cvut.cz/"
+        printHorSepColorless
+        checkHttpCodeColorless "https://profile.fit.cvut.cz/"
+        printHorSepColorless
+        checkHttpCodeColorless "https://grades.fit.cvut.cz/"
+        printHorSepColorless
+        checkHttpCodeColorless "https://auth.fit.cvut.cz/"
+        printHorSepColorless
+        checkHttpCodeColorless "https://gitlab.fit.cvut.cz/"
+        printHorSepColorless
+        checkHttpCodeColorless "https://fit-wiki.cz/"
+        printHorSepColorless
+    else
+        echo "Error: Internet connection is down"
+        exit 1
+    fi
 }
 
 #########################
@@ -138,6 +246,13 @@ function displayCopyingPSI() {
         --infobox 'Copying PSI...' 6 20
 }
 
+function displayPingServers() { # Display server check from checkHttpCode
+    dialog \
+        --backtitle "FITHELPER GUI" \
+        --title "FITHELPER" \
+        --msgbox "$(pingServersColorless)" 20 70
+}
+
 #########################
 ######### GUI ###########
 #########################
@@ -155,7 +270,8 @@ function GUI() {
     caps "Copy APS semester work to local dir"
     allaps "Do everything for APS"
     everything "DANGEROUS! DOES EVERYTHING!"
-    sinis "ssh to sinis pride")
+    sinis "ssh to sinis pride"
+    ping "Check faculty services")
 
     choice=$(
     dialog --clear --keep-tite \
@@ -230,6 +346,9 @@ function GUI() {
 
     elif [ "$choice" = 'sinis' ]; then
       sinis
+
+    elif [ "$choice" = 'ping' ]; then
+      displayPingServers
 
     elif [ "$choice" = 'everything' ]; then
       displayMounting
@@ -322,6 +441,9 @@ elif [ "$1" = 'allaps' ]; then
 
 elif [ "$1" = 'sinis' ] || [ "$1" = 'sin' ]; then
     sinis
+
+elif [ "$1" = 'ping' ]; then
+    pingServers
 
 elif [ "$1" = 'everything' ]; then
     echo 'Mounting...'
