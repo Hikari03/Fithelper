@@ -67,7 +67,7 @@ function sinis() {
 
 function checkHttpCode() {
     httpCode="$(curl --max-time 5 --silent --write-out %{response_code} "$1" -o /dev/null)"
-    if [ "$httpCode" -ne 200 ] && [ "$httpCode" -ne 301 ]; then
+    if [ "$httpCode" -ne 200 ] && [ "$httpCode" -ne 301 ] && [ "$httpCode" -ne 302 ]; then
         echo -e "${RED}Error:${RESET} $1 ${BLUE}returned${RED} $httpCode${RESET}"
     else
         echo -e "${GREEN}OK:${RESET} $1 ${BLUE}returned${GREEN} $httpCode${RESET}"
@@ -118,7 +118,7 @@ function pingServers() {
 # colorless version of checkHttpCode
 function checkHttpCodeColorless() {
     httpCode="$(curl --max-time 5 --silent --write-out %{response_code} "$1" -o /dev/null)"
-    if [ "$httpCode" -ne 200 ] && [ "$httpCode" -ne 301 ]; then
+    if [ "$httpCode" -ne 200 ] && [ "$httpCode" -ne 301 ] && [ "$httpCode" -ne 302 ]; then
         echo -e "Error: $1 returned $httpCode"
     else
         echo -e "OK: $1 returned $httpCode"
